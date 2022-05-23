@@ -1,0 +1,13 @@
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.csproj.GenerateResource.Cache
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\bin\Release\DSPBlueprintFileEditor.exe.config
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\bin\Release\DSPBlueprintFileEditor.exe
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\bin\Release\DSPBlueprintFileEditor.pdb
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.Properties.Resources.resources
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.exe
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.pdb
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.Form1.resources
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.Form2.resources
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.Form3.resources
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.Form4.resources
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.csprojResolveAssemblyReference.cache
+D:\Documents\Visual Studio 2015\Projects\DSPBlueprintFileEditor\DSPBlueprintFileEditor\obj\Release\DSPBlueprintFileEditor.Form5.resources

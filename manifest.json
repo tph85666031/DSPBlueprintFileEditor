@@ -1,0 +1,7 @@
+{
+    "name": "DSPBlueprintEditor",
+    "version_number": "1.0.8",
+    "website_url": "https://github.com/tph85666031/DSPBlueprintFileEditor",
+    "description": "DSP Blueprint File Editor,蓝图文件编辑工具",
+    "dependencies": []
+}
