@@ -8,7 +8,11 @@
 
 ---
 ### Changelog:
-**1.0.8:** 
+**1.0.10:** 
+* supoort setting structures' proliferator type.支持批量修改生产设置增产方式（加速 or 增产）
+* bug fix
+
+**1.0.9:** 
 * upload source code to github
 
 **1.0.8:** 

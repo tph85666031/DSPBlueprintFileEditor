@@ -16,6 +16,7 @@ public static class Config
     public static int index_drone_load = 326;
     public static int index_vessel_load = 327;
     public static int index_gather_speed = 329;
+    public static int index_proliferator = 0;
 
     public static int index_item1 = 0;
     public static int index_item1_local_mode = 1;

@@ -1,3 +1,4 @@
-DSPBlueprintFileEditor\obj\*
-DSPBlueprintFileEditor\bin\*
+DSPBlueprintFileEditor/obj/*
+DSPBlueprintFileEditor/bin/*
+DSPBlueprintFileEditor.zip
 .vs

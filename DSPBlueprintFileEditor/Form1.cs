@@ -28,11 +28,11 @@ namespace DSPBlueprintFileEditor
             {
                 int id = Int32.Parse(listViewStructures.SelectedItems[i].SubItems[0].Text);
                 int item_id = Int32.Parse(listViewStructures.SelectedItems[i].SubItems[1].Text);
-                listViewStructures.SelectedItems[i].SubItems[1].Text = bd.buildings[id].itemId.ToString();
+                listViewStructures.SelectedItems[i].SubItems[1].Text = item_id.ToString();
                 listViewStructures.SelectedItems[i].SubItems[2].Text = Config.items[item_id];
                 if (Config.hasRecipe(item_id))
                 {
-                    listViewStructures.SelectedItems[i].SubItems[3].Text = bd.buildings[id].itemId.ToString();
+                    listViewStructures.SelectedItems[i].SubItems[3].Text = Config.recipes[bd.buildings[id].recipeId];
                 }
                 else
                 {
@@ -47,7 +47,7 @@ namespace DSPBlueprintFileEditor
             listViewStructures.Columns[0].Width = -1;
             listViewStructures.Columns[1].Width = -1;
             listViewStructures.Columns[2].Width = -1;
-            listViewStructures.Columns[3].Width = -1;
+            listViewStructures.Columns[3].Width = -2;
             listViewStructures.Columns[4].Width = -1;
             listViewStructures.Columns[5].Width = -1;
             listViewStructures.Columns[6].Width = -1;
@@ -104,7 +104,7 @@ namespace DSPBlueprintFileEditor
             listViewStructures.Columns[0].Width = -1;
             listViewStructures.Columns[1].Width = -1;
             listViewStructures.Columns[2].Width = -1;
-            listViewStructures.Columns[3].Width = -1;
+            listViewStructures.Columns[3].Width = -2;
             listViewStructures.Columns[4].Width = -1;
             listViewStructures.Columns[5].Width = -1;
             listViewStructures.Columns[6].Width = -1;
@@ -146,7 +146,8 @@ namespace DSPBlueprintFileEditor
             {
                 return;
             }
-            bd.SaveBlueprintData(sfd.FileName);
+            file_blue_print = sfd.FileName;
+            bd.SaveBlueprintData(file_blue_print);
         }
 
         private void textBox_name_TextChanged(object sender, EventArgs e)
@@ -234,7 +235,12 @@ namespace DSPBlueprintFileEditor
             int id = Int32.Parse(item_first.SubItems[0].Text);
             int item_id = Int32.Parse(item_first.SubItems[1].Text);
             int recipe_id = bd.buildings[id].recipeId;
-            Form4 f = new Form4(recipe_id);
+            bool attr_speed = true;
+            if (Config.hasRecipe(item_id) && bd.buildings[id].parameters != null && bd.buildings[id].parameters.Length == 1)
+            {
+                attr_speed = (bd.buildings[id].parameters[Config.index_proliferator] == 1);
+            }
+            Form4 f = new Form4(recipe_id, attr_speed);
             f.ShowDialog();
             if (f.getResult() != 1)
             {
@@ -245,6 +251,10 @@ namespace DSPBlueprintFileEditor
                 id = Int32.Parse(item.SubItems[0].Text);
                 item_id = Int32.Parse(item.SubItems[1].Text);
                 bd.buildings[id].recipeId = f.getRecipeId();
+                if (Config.hasRecipe(item_id) && bd.buildings[id].parameters != null && bd.buildings[id].parameters.Length == 1)
+                {
+                    bd.buildings[id].parameters[Config.index_proliferator] = f.isAttrSpeed() ? 1 : 0;
+                }
             }
             reloadListViewSelected();
         }
@@ -273,72 +283,79 @@ namespace DSPBlueprintFileEditor
                 for (int i = 0; i < bd.buildings.Length; i++)
                 {
                     BlueprintBuilding bb = bd.buildings[i];
-                    if (bb.itemId == 2001 || bb.itemId == 2002 || bb.itemId == 2003)
+                    if (f.isLevelModified())
                     {
-                        if (f.belt_level == 0)
+                        if (bb.itemId == 2001 || bb.itemId == 2002 || bb.itemId == 2003)
                         {
-                            bb.itemId = 2001;
-                            bb.modelIndex = 35;
+                            if (f.belt_level == 0)
+                            {
+                                bb.itemId = 2001;
+                                bb.modelIndex = 35;
+                            }
+                            else if (f.belt_level == 1)
+                            {
+                                bb.itemId = 2002;
+                                bb.modelIndex = 36;
+                            }
+                            else if (f.belt_level == 2)
+                            {
+                                bb.itemId = 2003;
+                                bb.modelIndex = 37;
+                            }
                         }
-                        else if (f.belt_level == 1)
+                        else if (bb.itemId == 2011 || bb.itemId == 2012 || bb.itemId == 2013)
                         {
-                            bb.itemId = 2002;
-                            bb.modelIndex = 36;
+                            if (f.sorter_level == 0)
+                            {
+                                bb.itemId = 2011;
+                                bb.modelIndex = 41;
+                            }
+                            else if (f.sorter_level == 1)
+                            {
+                                bb.itemId = 2012;
+                                bb.modelIndex = 42;
+                            }
+                            else if (f.sorter_level == 2)
+                            {
+                                bb.itemId = 2013;
+                                bb.modelIndex = 43;
+                            }
                         }
-                        else if (f.belt_level == 2)
+                        else if (bb.itemId == 2303 || bb.itemId == 2304 || bb.itemId == 2305)
                         {
-                            bb.itemId = 2003;
-                            bb.modelIndex = 37;
+                            if (f.assemble_level == 0)
+                            {
+                                bb.itemId = 2303;
+                                bb.modelIndex = 65;//UI
+                            }
+                            else if (f.assemble_level == 1)
+                            {
+                                bb.itemId = 2304;
+                                bb.modelIndex = 66;//UI
+                            }
+                            else if (f.assemble_level == 2)
+                            {
+                                bb.itemId = 2305;
+                                bb.modelIndex = 67;//UI
+                            }
+                        }
+                        else if (bb.itemId == 2302 || bb.itemId == 2315)
+                        {
+                            if (f.smelter_level == 0)
+                            {
+                                bb.itemId = 2302;
+                                bb.modelIndex = 62;//UI
+                            }
+                            else if (f.smelter_level == 1)
+                            {
+                                bb.itemId = 2315;
+                                bb.modelIndex = 194;//UI
+                            }
                         }
                     }
-                    if (bb.itemId == 2011 || bb.itemId == 2012 || bb.itemId == 2013)
+                    if (f.isProliferatorModified() && Config.hasRecipe(bb.itemId) && bb.parameters != null && bb.parameters.Length == 1)
                     {
-                        if (f.sorter_level == 0)
-                        {
-                            bb.itemId = 2011;
-                            bb.modelIndex = 41;
-                        }
-                        else if (f.sorter_level == 1)
-                        {
-                            bb.itemId = 2012;
-                            bb.modelIndex = 42;
-                        }
-                        else if (f.sorter_level == 2)
-                        {
-                            bb.itemId = 2013;
-                            bb.modelIndex = 43;
-                        }
-                    }
-                    if (bb.itemId == 2303 || bb.itemId == 2304 || bb.itemId == 2305)
-                    {
-                        if (f.assemble_level == 0)
-                        {
-                            bb.itemId = 2303;
-                            bb.modelIndex = 65;//UI
-                        }
-                        else if (f.assemble_level == 1)
-                        {
-                            bb.itemId = 2304;
-                            bb.modelIndex = 66;//UI
-                        }
-                        else if (f.assemble_level == 2)
-                        {
-                            bb.itemId = 2305;
-                            bb.modelIndex = 67;//UI
-                        }
-                    }
-                    if (bb.itemId == 2302 || bb.itemId == 2315)
-                    {
-                        if (f.smelter_level == 0)
-                        {
-                            bb.itemId = 2302;
-                            bb.modelIndex = 62;//UI
-                        }
-                        else if (f.smelter_level == 1)
-                        {
-                            bb.itemId = 2315;
-                            bb.modelIndex = 194;//UI
-                        }
+                        bb.parameters[Config.index_proliferator] = f.isAttrSpeed() ? 1 : 0;
                     }
                     if (f.isStationModified() && Config.isStation(bb.itemId))
                     {
@@ -372,11 +389,13 @@ namespace DSPBlueprintFileEditor
                 else if (Config.hasRecipe(item_id))
                 {
                     int recipe_id = bd.buildings[id].recipeId;
-                    Form4 f = new Form4(recipe_id);
+                    bool attr_speed = (bd.buildings[id].parameters[Config.index_proliferator] == 1);
+                    Form4 f = new Form4(recipe_id, attr_speed);
                     f.ShowDialog();
                     if (f.getResult() == 1)
                     {
                         bd.buildings[id].recipeId = f.getRecipeId();
+                        bd.buildings[id].parameters[Config.index_proliferator] = f.isAttrSpeed() ? 1 : 0;
                         reloadListViewSelected();
                     }
                 }
@@ -508,7 +527,7 @@ namespace DSPBlueprintFileEditor
             }
             chart_belt.Series[0].Points.Clear();
             chart_belt.Series[0].Points.DataBindXY(x, y);
-            chart_belt.ChartAreas[0].AxisX.Minimum = x_min-1;
+            chart_belt.ChartAreas[0].AxisX.Minimum = x_min - 1;
             chart_belt.ChartAreas[0].AxisX.Maximum = x_max + 1;
             chart_belt.ChartAreas[0].AxisY.Minimum = y_min - 1;
             chart_belt.ChartAreas[0].AxisY.Maximum = y_max + 1;

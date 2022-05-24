@@ -61,10 +61,10 @@
             // 
             this.numericUpDown_x.DecimalPlaces = 6;
             this.numericUpDown_x.Increment = new decimal(new int[] {
+            1,
             0,
             0,
-            0,
-            0});
+            65536});
             this.numericUpDown_x.Location = new System.Drawing.Point(33, 7);
             this.numericUpDown_x.Minimum = new decimal(new int[] {
             100,
@@ -89,10 +89,10 @@
             // 
             this.numericUpDown_y.DecimalPlaces = 6;
             this.numericUpDown_y.Increment = new decimal(new int[] {
+            1,
             0,
             0,
-            0,
-            0});
+            65536});
             this.numericUpDown_y.Location = new System.Drawing.Point(33, 38);
             this.numericUpDown_y.Minimum = new decimal(new int[] {
             100,

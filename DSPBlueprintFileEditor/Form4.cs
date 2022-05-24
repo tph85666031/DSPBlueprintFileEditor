@@ -14,7 +14,8 @@ namespace DSPBlueprintFileEditor
     {
         private int result = 0;
         private int recipe_id = 0;
-        public Form4(int recipe_id)
+        private bool attr_speed = true;
+        public Form4(int recipe_id, bool attr_speed)
         {
             this.recipe_id = recipe_id;
             InitializeComponent();
@@ -22,6 +23,9 @@ namespace DSPBlueprintFileEditor
             List<String> recipes_str = Config.getRecipesAsString();
             comboBox_recipe.DataSource = recipes_str;
             comboBox_recipe.Text = Config.getRecipeAsString(recipe_id);
+            radioButton_speed.Checked = attr_speed;
+            radioButton_extra.Checked = !attr_speed;
+            this.attr_speed = attr_speed;
         }
 
         public int getResult()
@@ -31,7 +35,12 @@ namespace DSPBlueprintFileEditor
 
         public int getRecipeId()
         {
-            return this.recipe_id;
+            return recipe_id;
+        }
+
+        public bool isAttrSpeed()
+        {
+            return attr_speed;
         }
 
         private void button_ok_Click(object sender, EventArgs e)
@@ -67,6 +76,16 @@ namespace DSPBlueprintFileEditor
         private void button_cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void radioButton_speed_CheckedChanged(object sender, EventArgs e)
+        {
+            attr_speed = radioButton_speed.Checked;
+        }
+
+        private void radioButton_extra_CheckedChanged(object sender, EventArgs e)
+        {
+            attr_speed = radioButton_speed.Checked;
         }
     }
 }

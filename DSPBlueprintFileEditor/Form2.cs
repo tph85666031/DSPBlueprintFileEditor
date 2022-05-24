@@ -22,6 +22,11 @@ namespace DSPBlueprintFileEditor
         public int drone_load = 10;
         public int vessel_load = 100;
 
+        private bool level_modified = false;
+        private bool station_modified = false;
+        private bool proliferator_modified = false;
+        private bool attr_speed = true;
+
         private int result = 0;
 
         public Form2()
@@ -39,6 +44,8 @@ namespace DSPBlueprintFileEditor
             numericUpDown_warp_distance.Value = warp_distance;
             numericUpDown_drone.Value = drone_load;
             numericUpDown_vessel.Value = vessel_load;
+            radioButton_speed.Checked = attr_speed;
+            radioButton_extra.Checked = !attr_speed;
         }
 
         public int getResult()
@@ -46,9 +53,24 @@ namespace DSPBlueprintFileEditor
             return result;
         }
 
+        public bool isLevelModified()
+        {
+            return level_modified;
+        }
+
         public bool isStationModified()
         {
-            return checkBox_station.Enabled;
+            return station_modified;
+        }
+
+        public bool isProliferatorModified()
+        {
+            return proliferator_modified;
+        }
+
+        public bool isAttrSpeed()
+        {
+            return attr_speed;
         }
 
         private void button_ok_Click(object sender, EventArgs e)
@@ -88,6 +110,7 @@ namespace DSPBlueprintFileEditor
             numericUpDown_warp_distance.Enabled = checkBox_station.Checked;
             numericUpDown_drone.Enabled = checkBox_station.Checked;
             numericUpDown_vessel.Enabled = checkBox_station.Checked;
+            station_modified = checkBox_station.Checked;
         }
 
         private void numericUpDown_charge_power_ValueChanged(object sender, EventArgs e)
@@ -120,6 +143,31 @@ namespace DSPBlueprintFileEditor
             {
                 vessel_load = (int)numericUpDown_vessel.Value;
             }
+        }
+
+        private void checkBox_attr_CheckedChanged(object sender, EventArgs e)
+        {
+            proliferator_modified = checkBox_attr.Checked;
+            groupBox_attr.Enabled = checkBox_attr.Checked;
+        }
+
+        private void radioButton_speed_CheckedChanged(object sender, EventArgs e)
+        {
+            attr_speed = radioButton_speed.Checked;
+        }
+
+        private void radioButton_extra_CheckedChanged(object sender, EventArgs e)
+        {
+            attr_speed = radioButton_speed.Checked;
+        }
+
+        private void checkBox_level_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBox_belt.Enabled = checkBox_level.Checked;
+            comboBox_sorter.Enabled = checkBox_level.Checked;
+            comboBox_assemble.Enabled = checkBox_level.Checked;
+            comboBox_smelter.Enabled = checkBox_level.Checked;
+            level_modified = checkBox_level.Checked;
         }
     }
 }
